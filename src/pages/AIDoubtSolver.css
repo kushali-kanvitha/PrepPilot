@@ -1,0 +1,175 @@
+.ai-doubt-page {
+  padding: 32px;
+  min-height: 100%;
+}
+
+.ai-doubt-header {
+  margin-bottom: 28px;
+}
+
+.ai-doubt-header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.ai-doubt-header p {
+  margin: 8px 0 0;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+.ai-doubt-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ai-welcome {
+  text-align: center;
+  padding: 35px 20px 25px;
+}
+
+.ai-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+  background: #eef2ff;
+
+  font-size: 30px;
+}
+
+.ai-welcome h2 {
+  margin: 0 0 10px;
+  font-size: 24px;
+}
+
+.ai-welcome p {
+  max-width: 620px;
+  margin: 0 auto;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.ai-suggestions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.ai-suggestions button {
+  padding: 15px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: white;
+  color: #374151;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ai-suggestions button:hover {
+  border-color: #6366f1;
+  background: #f8f8ff;
+}
+
+.ai-question-form {
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: white;
+  padding: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.ai-question-form textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.6;
+  box-sizing: border-box;
+  min-height: 100px;
+}
+
+.ai-input-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.ai-input-footer span {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.ai-input-footer button {
+  border: none;
+  border-radius: 9px;
+  padding: 10px 20px;
+  background: #4f46e5;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ai-input-footer button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 700px) {
+  .ai-doubt-page {
+    padding: 20px;
+  }
+
+  .ai-suggestions {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-input-footer {
+    align-items: flex-end;
+    flex-direction: column;
+  }
+
+  .ai-input-footer button {
+    width: 100%;
+  }
+}
+.ai-answer {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: white;
+  line-height: 1.7;
+}
+
+.ai-answer-title {
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #111827;
+}
+
+.ai-answer-content {
+  color: #374151;
+  white-space: pre-wrap;
+}
+
+.ai-error {
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 10px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 14px;
+}
