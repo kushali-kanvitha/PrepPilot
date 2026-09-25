@@ -6,7 +6,7 @@ It provides tools for **DSA practice, resume management, ATS analysis, placement
 
 ## 🌐 Live Demo
 
-👉 **[Open PrepPilot](https://preppilot-placement.onrender.com)**
+👉 **[Open PrepPilot](https://preppilot-app.onrender.com)**
 
 ## 📂 GitHub Repository
 
@@ -356,6 +356,6 @@ B.Tech Computer Science Engineering
 
 If you find this project useful, consider giving the repository a ⭐ on GitHub.
 
-**Live Demo:** [PrepPilot](https://preppilot-placement.onrender.com)
+**Live Demo:** [PrepPilot](https://preppilot-app.onrender.com)
 
 **GitHub:** [kushali-kanvitha/PrepPilot](https://github.com/kushali-kanvitha/PrepPilot)
