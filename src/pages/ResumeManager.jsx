@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 
 import { db, auth } from "../firebase/firebase";
+import "./ResumeManager.css";
 
 
 function ResumeManager() {
@@ -204,129 +205,178 @@ function ResumeManager() {
 
 
   return (
+  <div className="resume-page">
 
-    <div>
-
+    <div className="resume-header">
       <h1>Resume Manager</h1>
 
       <p>
         Manage your resume versions for placement applications.
       </p>
+    </div>
 
+    <div className="resume-container">
 
       {/* Add Resume */}
+      <div className="resume-card">
 
-      <form onSubmit={handleSaveResume}>
+        <h2>Add New Resume</h2>
 
-        <input
-          type="text"
-          placeholder="Resume name"
-          value={resumeName}
-          onChange={(e) => setResumeName(e.target.value)}
-          required
-        />
+        <form
+          className="resume-form"
+          onSubmit={handleSaveResume}
+        >
 
+          <input
+            type="text"
+            placeholder="Resume name"
+            value={resumeName}
+            onChange={(e) => setResumeName(e.target.value)}
+            required
+          />
 
-        <input
-          type="text"
-          placeholder="Version (Example: V1, V2)"
-          value={version}
-          onChange={(e) => setVersion(e.target.value)}
-          required
-        />
+          <input
+            type="text"
+            placeholder="Version (Example: V1, V2)"
+            value={version}
+            onChange={(e) => setVersion(e.target.value)}
+            required
+          />
 
-
-        <input
-          type="file"
-          accept=".pdf"
-          onChange={handleResumeSelect}
-          required
-        />
-
-
-        <button type="submit">
-          Save Resume
-        </button>
-
-      </form>
-
-
-      <hr />
-
-
-      <h2>My Resumes</h2>
-
-
-      {resumes.length === 0 && (
-        <p>
-          No resumes added yet.
-        </p>
-      )}
-
-
-      {resumes.map((item) => (
-
-        <div key={item.id}>
-
-          <h3>
-            {item.resumeName}
-          </h3>
-
-          <p>
-            Version: {item.version}
-          </p>
-
-          <p>
-            File: {item.fileName}
-          </p>
-
-          <p>
-            Size: {(item.fileSize / 1024).toFixed(2)} KB
-          </p>
-
-
-          {item.isCurrent && (
-            <strong>
-              ⭐ Current Resume
-            </strong>
-          )}
-
-
-          <br />
-          <br />
-
-
-          {!item.isCurrent && (
-
-            <button
-              onClick={() =>
-                handleMakeCurrent(item.id)
-              }
-            >
-              Make Current
-            </button>
-
-          )}
-
+          <input
+            className="resume-file"
+            type="file"
+            accept=".pdf"
+            onChange={handleResumeSelect}
+            required
+          />
 
           <button
-            onClick={() =>
-              handleDelete(item.id)
-            }
+            className="resume-save-btn"
+            type="submit"
           >
-            Delete
+            Save Resume
           </button>
 
+        </form>
 
-          <hr />
+      </div>
+
+
+      {/* Resume List */}
+      <div className="resume-card">
+
+        <div className="resume-list-header">
+          <div>
+            <h2>My Resumes</h2>
+
+            <p>
+              {resumes.length} resume
+              {resumes.length !== 1 ? "s" : ""}
+            </p>
+          </div>
+        </div>
+
+
+        {resumes.length === 0 && (
+          <div className="resume-empty">
+            <div className="resume-empty-icon">
+              📄
+            </div>
+
+            <h3>No resumes added yet</h3>
+
+            <p>
+              Add your first resume above to start managing your versions.
+            </p>
+          </div>
+        )}
+
+
+        <div className="resume-list">
+
+          {resumes.map((item) => (
+
+            <div
+              className="resume-item"
+              key={item.id}
+            >
+
+              <div className="resume-info">
+
+                <div className="resume-icon">
+                  📄
+                </div>
+
+                <div>
+
+                  <h3>
+                    {item.resumeName}
+                  </h3>
+
+                  <p>
+                    Version: {item.version}
+                  </p>
+
+                  <p>
+                    File: {item.fileName}
+                  </p>
+
+                  <p>
+                    Size: {(item.fileSize / 1024).toFixed(2)} KB
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div className="resume-right">
+
+                {item.isCurrent && (
+                  <span className="current-resume">
+                    ⭐ Current Resume
+                  </span>
+                )}
+
+                <div className="resume-actions">
+
+                  {!item.isCurrent && (
+                    <button
+                      className="resume-current-btn"
+                      onClick={() =>
+                        handleMakeCurrent(item.id)
+                      }
+                    >
+                      Make Current
+                    </button>
+                  )}
+
+                  <button
+                    className="resume-delete-btn"
+                    onClick={() =>
+                      handleDelete(item.id)
+                    }
+                  >
+                    Delete
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          ))}
 
         </div>
 
-      ))}
+      </div>
 
     </div>
 
-  );
+  </div>
+);
 
 }
 

@@ -14,6 +14,8 @@ import {
   updateDoc
 } from "firebase/firestore";
 
+import "./Calendar.css";
+
 function Calendar() {
 
   const [events, setEvents] = useState([]);
@@ -191,6 +193,10 @@ function Calendar() {
 
     setEditingId(event.id);
 
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   };
 
   // Delete event
@@ -249,291 +255,404 @@ function Calendar() {
 
   return (
 
-    <div>
+    <div className="calendar-page">
 
-      <h1>Interview Calendar</h1>
+      <div className="calendar-container">
 
-      <p>
-        Track your upcoming OAs,
-        interviews and placement events.
-      </p>
+        {/* HEADER */}
 
-      <hr />
+        <div className="calendar-header">
 
-      {/* ADD / EDIT FORM */}
+          <h1>Interview Calendar</h1>
 
-      <h2>
-        {editingId
-          ? "Edit Interview"
-          : "Add Interview"}
-      </h2>
+          <p>
+            Track your upcoming OAs,
+            interviews and placement events.
+          </p>
 
-      <form onSubmit={handleSubmit}>
+        </div>
 
-        <input
-          type="text"
-          placeholder="Company name"
-          value={company}
-          onChange={(e) =>
-            setCompany(e.target.value)
-          }
-          required
-        />
+        {/* ADD / EDIT FORM */}
 
-        <br />
-        <br />
+        <div className="calendar-card">
 
-        <label>
-          Event Type:
-        </label>
+          <h2>
+            {editingId
+              ? "Edit Interview"
+              : "Add Interview"}
+          </h2>
 
-        {" "}
-
-        <select
-          value={type}
-          onChange={(e) =>
-            setType(e.target.value)
-          }
-        >
-
-          <option value="OA">
-            Online Assessment
-          </option>
-
-          <option value="Interview">
-            Interview
-          </option>
-
-          <option value="Coding Test">
-            Coding Test
-          </option>
-
-          <option value="Group Discussion">
-            Group Discussion
-          </option>
-
-        </select>
-
-        <br />
-        <br />
-
-        <label>
-          Round:
-        </label>
-
-        {" "}
-
-        <select
-          value={round}
-          onChange={(e) =>
-            setRound(e.target.value)
-          }
-        >
-
-          <option value="Technical">
-            Technical
-          </option>
-
-          <option value="HR">
-            HR
-          </option>
-
-          <option value="Managerial">
-            Managerial
-          </option>
-
-          <option value="Coding">
-            Coding
-          </option>
-
-          <option value="Aptitude">
-            Aptitude
-          </option>
-
-        </select>
-
-        <br />
-        <br />
-
-        <label>
-          Date:
-        </label>
-
-        {" "}
-
-        <input
-          type="date"
-          value={date}
-          onChange={(e) =>
-            setDate(e.target.value)
-          }
-          required
-        />
-
-        <br />
-        <br />
-
-        <label>
-          Time:
-        </label>
-
-        {" "}
-
-        <input
-          type="time"
-          value={time}
-          onChange={(e) =>
-            setTime(e.target.value)
-          }
-          required
-        />
-
-        <br />
-        <br />
-
-        <label>
-          Status:
-        </label>
-
-        {" "}
-
-        <select
-          value={status}
-          onChange={(e) =>
-            setStatus(e.target.value)
-          }
-        >
-
-          <option value="Upcoming">
-            Upcoming
-          </option>
-
-          <option value="Completed">
-            Completed
-          </option>
-
-          <option value="Cancelled">
-            Cancelled
-          </option>
-
-        </select>
-
-        <br />
-        <br />
-
-        <textarea
-          rows="4"
-          cols="50"
-          placeholder="Notes"
-          value={notes}
-          onChange={(e) =>
-            setNotes(e.target.value)
-          }
-        />
-
-        <br />
-        <br />
-
-        <button type="submit">
-
-          {editingId
-            ? "Update Interview"
-            : "Add Interview"}
-
-        </button>
-
-        {" "}
-
-        {editingId && (
-
-          <button
-            type="button"
-            onClick={resetForm}
-          >
-            Cancel Edit
-          </button>
-
-        )}
-
-      </form>
-
-      <hr />
-
-      {/* INTERVIEW LIST */}
-
-      <h2>My Interviews</h2>
-
-      {sortedEvents.length === 0 ? (
-
-        <p>
-          No interviews added yet.
-        </p>
-
-      ) : (
-
-        sortedEvents.map((event) => (
-
-          <div
-            key={event.id}
+          <form
+            className="calendar-form"
+            onSubmit={handleSubmit}
           >
 
-            <h3>
-              {event.company}
-            </h3>
+            <div className="form-group">
 
-            <p>
-              📌 Type: {event.type}
-            </p>
+              <label>
+                Company Name
+              </label>
 
-            <p>
-              🎯 Round: {event.round}
-            </p>
+              <input
+                type="text"
+                placeholder="Enter company name"
+                value={company}
+                onChange={(e) =>
+                  setCompany(e.target.value)
+                }
+                required
+              />
 
-            <p>
-              📅 Date: {event.date}
-            </p>
+            </div>
 
-            <p>
-              ⏰ Time: {event.time}
-            </p>
+            <div className="form-row">
 
-            <p>
-              📊 Status: {event.status}
-            </p>
+              <div className="form-group">
 
-            {event.notes && (
+                <label>
+                  Event Type
+                </label>
+
+                <select
+                  value={type}
+                  onChange={(e) =>
+                    setType(e.target.value)
+                  }
+                >
+
+                  <option value="OA">
+                    Online Assessment
+                  </option>
+
+                  <option value="Interview">
+                    Interview
+                  </option>
+
+                  <option value="Coding Test">
+                    Coding Test
+                  </option>
+
+                  <option value="Group Discussion">
+                    Group Discussion
+                  </option>
+
+                </select>
+
+              </div>
+
+              <div className="form-group">
+
+                <label>
+                  Round
+                </label>
+
+                <select
+                  value={round}
+                  onChange={(e) =>
+                    setRound(e.target.value)
+                  }
+                >
+
+                  <option value="Technical">
+                    Technical
+                  </option>
+
+                  <option value="HR">
+                    HR
+                  </option>
+
+                  <option value="Managerial">
+                    Managerial
+                  </option>
+
+                  <option value="Coding">
+                    Coding
+                  </option>
+
+                  <option value="Aptitude">
+                    Aptitude
+                  </option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+            <div className="form-row">
+
+              <div className="form-group">
+
+                <label>
+                  Date
+                </label>
+
+                <input
+                  type="date"
+                  value={date}
+                  onChange={(e) =>
+                    setDate(e.target.value)
+                  }
+                  required
+                />
+
+              </div>
+
+              <div className="form-group">
+
+                <label>
+                  Time
+                </label>
+
+                <input
+                  type="time"
+                  value={time}
+                  onChange={(e) =>
+                    setTime(e.target.value)
+                  }
+                  required
+                />
+
+              </div>
+
+            </div>
+
+            <div className="form-group">
+
+              <label>
+                Status
+              </label>
+
+              <select
+                value={status}
+                onChange={(e) =>
+                  setStatus(e.target.value)
+                }
+              >
+
+                <option value="Upcoming">
+                  Upcoming
+                </option>
+
+                <option value="Completed">
+                  Completed
+                </option>
+
+                <option value="Cancelled">
+                  Cancelled
+                </option>
+
+              </select>
+
+            </div>
+
+            <div className="form-group">
+
+              <label>
+                Notes
+              </label>
+
+              <textarea
+                rows="4"
+                placeholder="Add any notes about this event..."
+                value={notes}
+                onChange={(e) =>
+                  setNotes(e.target.value)
+                }
+              />
+
+            </div>
+
+            <div className="form-actions">
+
+              <button
+                type="submit"
+                className="primary-btn"
+              >
+                {editingId
+                  ? "Update Interview"
+                  : "Add Interview"}
+              </button>
+
+              {editingId && (
+
+                <button
+                  type="button"
+                  className="cancel-btn"
+                  onClick={resetForm}
+                >
+                  Cancel Edit
+                </button>
+
+              )}
+
+            </div>
+
+          </form>
+
+        </div>
+
+        {/* INTERVIEW LIST */}
+
+        <div className="calendar-card">
+
+          <div className="list-header">
+
+            <div>
+
+              <h2>My Interviews</h2>
 
               <p>
-                📝 Notes: {event.notes}
+                {events.length} event
+                {events.length !== 1
+                  ? "s"
+                  : ""}
               </p>
 
-            )}
-
-            <button
-              onClick={() =>
-                handleEdit(event)
-              }
-            >
-              Edit
-            </button>
-
-            {" "}
-
-            <button
-              onClick={() =>
-                handleDelete(event.id)
-              }
-            >
-              Delete
-            </button>
-
-            <hr />
+            </div>
 
           </div>
 
-        ))
+          {sortedEvents.length === 0 ? (
 
-      )}
+            <div className="empty-state">
+
+              <div className="empty-icon">
+                📅
+              </div>
+
+              <h3>
+                No interviews added yet
+              </h3>
+
+              <p>
+                Add your upcoming OAs,
+                interviews and placement
+                events above.
+              </p>
+
+            </div>
+
+          ) : (
+
+            <div className="events-list">
+
+              {sortedEvents.map((event) => (
+
+                <div
+                  className="event-card"
+                  key={event.id}
+                >
+
+                  <div className="event-top">
+
+                    <div>
+
+                      <h3>
+                        {event.company}
+                      </h3>
+
+                      <div className="event-tags">
+
+                        <span className="tag">
+                          {event.type}
+                        </span>
+
+                        <span className="tag">
+                          {event.round}
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                    <span
+                      className={`status-badge status-${event.status
+                        ?.toLowerCase()
+                        .replace(" ", "-")}`}
+                    >
+                      {event.status}
+                    </span>
+
+                  </div>
+
+                  <div className="event-details">
+
+                    <div className="detail-item">
+
+                      <span className="detail-label">
+                        📅 Date
+                      </span>
+
+                      <span>
+                        {event.date}
+                      </span>
+
+                    </div>
+
+                    <div className="detail-item">
+
+                      <span className="detail-label">
+                        ⏰ Time
+                      </span>
+
+                      <span>
+                        {event.time}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                  {event.notes && (
+
+                    <div className="event-notes">
+
+                      <strong>
+                        📝 Notes
+                      </strong>
+
+                      <p>
+                        {event.notes}
+                      </p>
+
+                    </div>
+
+                  )}
+
+                  <div className="event-actions">
+
+                    <button
+                      className="edit-btn"
+                      onClick={() =>
+                        handleEdit(event)
+                      }
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      className="delete-btn"
+                      onClick={() =>
+                        handleDelete(event.id)
+                      }
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                </div>
+
+              ))}
+
+            </div>
+
+          )}
+
+        </div>
+
+      </div>
 
     </div>
 

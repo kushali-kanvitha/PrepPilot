@@ -14,6 +14,8 @@ import {
   updateDoc
 } from "firebase/firestore";
 
+import "./Notes.css";
+
 function Notes() {
   const [notes, setNotes] = useState([]);
 
@@ -128,6 +130,11 @@ function Notes() {
     setTitle(note.title || "");
     setContent(note.content || "");
     setEditingId(note.id);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   };
 
   const handleDelete = async (id) => {
@@ -152,107 +159,208 @@ function Notes() {
   };
 
   return (
-    <div>
-      <h1>Notes</h1>
+    <div className="notes-page">
 
-      <p>
-        Save important placement preparation
-        notes, company notes and interview notes.
-      </p>
+      <div className="notes-container">
 
-      <hr />
+        {/* HEADER */}
 
-      <h2>
-        {editingId
-          ? "Edit Note"
-          : "Add Note"}
-      </h2>
+        <div className="notes-header">
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Note title"
-          value={title}
-          onChange={(e) =>
-            setTitle(e.target.value)
-          }
-          required
-        />
+          <h1>Notes</h1>
 
-        <br />
-        <br />
+          <p>
+            Save important placement preparation
+            notes, company notes and interview notes.
+          </p>
 
-        <textarea
-          placeholder="Write your note..."
-          value={content}
-          onChange={(e) =>
-            setContent(e.target.value)
-          }
-          rows="8"
-          cols="50"
-          required
-        />
+        </div>
 
-        <br />
-        <br />
 
-        <button type="submit">
-          {editingId
-            ? "Update Note"
-            : "Add Note"}
-        </button>
+        {/* ADD / EDIT NOTE */}
 
-        {" "}
+        <div className="notes-card">
 
-        {editingId && (
-          <button
-            type="button"
-            onClick={resetForm}
+          <h2>
+            {editingId
+              ? "Edit Note"
+              : "Add Note"}
+          </h2>
+
+          <form
+            className="notes-form"
+            onSubmit={handleSubmit}
           >
-            Cancel Edit
-          </button>
-        )}
-      </form>
 
-      <hr />
+            <div className="form-group">
 
-      <h2>My Notes</h2>
+              <label>
+                Note Title
+              </label>
 
-      {notes.length === 0 ? (
-        <p>
-          No notes added yet.
-        </p>
-      ) : (
-        notes.map((note) => (
-          <div key={note.id}>
-            <h3>{note.title}</h3>
+              <input
+                type="text"
+                placeholder="Example: DBMS Normalization"
+                value={title}
+                onChange={(e) =>
+                  setTitle(e.target.value)
+                }
+                required
+              />
 
-            <p>
-              {note.content}
-            </p>
+            </div>
 
-            <button
-              onClick={() =>
-                handleEdit(note)
-              }
-            >
-              Edit
-            </button>
 
-            {" "}
+            <div className="form-group">
 
-            <button
-              onClick={() =>
-                handleDelete(note.id)
-              }
-            >
-              Delete
-            </button>
+              <label>
+                Note Content
+              </label>
 
-            <hr />
+              <textarea
+                placeholder="Write your note..."
+                value={content}
+                onChange={(e) =>
+                  setContent(e.target.value)
+                }
+                rows="8"
+                required
+              />
+
+            </div>
+
+
+            <div className="notes-form-actions">
+
+              <button
+                type="submit"
+                className="primary-btn"
+              >
+                {editingId
+                  ? "Update Note"
+                  : "Add Note"}
+              </button>
+
+              {editingId && (
+
+                <button
+                  type="button"
+                  className="cancel-btn"
+                  onClick={resetForm}
+                >
+                  Cancel Edit
+                </button>
+
+              )}
+
+            </div>
+
+          </form>
+
+        </div>
+
+
+        {/* NOTES LIST */}
+
+        <div className="notes-card">
+
+          <div className="notes-list-header">
+
+            <div>
+
+              <h2>
+                My Notes
+              </h2>
+
+              <p>
+                {notes.length} note
+                {notes.length !== 1
+                  ? "s"
+                  : ""}
+              </p>
+
+            </div>
+
           </div>
-        ))
-      )}
+
+
+          {notes.length === 0 ? (
+
+            <div className="empty-notes">
+
+              <div className="empty-notes-icon">
+                📝
+              </div>
+
+              <h3>
+                No notes added yet
+              </h3>
+
+              <p>
+                Add your first placement
+                preparation note above.
+              </p>
+
+            </div>
+
+          ) : (
+
+            <div className="notes-list">
+
+              {notes.map((note) => (
+
+                <div
+                  className="note-item"
+                  key={note.id}
+                >
+
+                  <div className="note-content">
+
+                    <h3>
+                      {note.title}
+                    </h3>
+
+                    <p>
+                      {note.content}
+                    </p>
+
+                  </div>
+
+
+                  <div className="note-actions">
+
+                    <button
+                      className="edit-btn"
+                      onClick={() =>
+                        handleEdit(note)
+                      }
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      className="delete-btn"
+                      onClick={() =>
+                        handleDelete(note.id)
+                      }
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                </div>
+
+              ))}
+
+            </div>
+
+          )}
+
+        </div>
+
+      </div>
+
     </div>
   );
 }

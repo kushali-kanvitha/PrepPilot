@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 
 import { db, auth } from "../firebase/firebase";
+import "./DsaTracker.css";
 
 function DsaTracker() {
   const [problem, setProblem] = useState("");
@@ -126,16 +127,25 @@ function DsaTracker() {
   ];
 
   return (
-    <div>
+  <div className="dsa-page">
+
+    <div className="dsa-header">
       <h1>DSA Tracker</h1>
 
       <p>
         Track your DSA preparation and problem-solving progress.
       </p>
+    </div>
 
-      {/* Add Problem Form */}
+    {/* Add Problem Form */}
+    <div className="dsa-card">
 
-      <form onSubmit={handleAddProblem}>
+      <h2>Add New Problem</h2>
+
+      <form
+        className="dsa-form"
+        onSubmit={handleAddProblem}
+      >
 
         <input
           type="text"
@@ -162,109 +172,148 @@ function DsaTracker() {
           <option value="Hard">Hard</option>
         </select>
 
-        <button type="submit">
+        <button
+          className="dsa-add-btn"
+          type="submit"
+        >
           Add Problem
         </button>
 
       </form>
 
-      <hr />
+    </div>
 
-      {/* Difficulty Filter */}
+    {/* Filters */}
+    <div className="dsa-card">
 
-      <select
-        value={filterDifficulty}
-        onChange={(e) => setFilterDifficulty(e.target.value)}
-      >
-        <option value="All">
-          All Difficulties
-        </option>
+      <div className="dsa-filter-header">
+        <h2>Filter Problems</h2>
+      </div>
 
-        <option value="Easy">
-          Easy
-        </option>
+      <div className="dsa-filters">
 
-        <option value="Medium">
-          Medium
-        </option>
-
-        <option value="Hard">
-          Hard
-        </option>
-      </select>
-
-      {/* Topic Filter */}
-
-      <select
-        value={filterTopic}
-        onChange={(e) => setFilterTopic(e.target.value)}
-      >
-        <option value="All">
-          All Topics
-        </option>
-
-        {topics.map((topic) => (
-          <option
-            key={topic}
-            value={topic}
-          >
-            {topic}
+        <select
+          value={filterDifficulty}
+          onChange={(e) => setFilterDifficulty(e.target.value)}
+        >
+          <option value="All">
+            All Difficulties
           </option>
-        ))}
-      </select>
 
-      <h3>Problems Solved</h3>
+          <option value="Easy">
+            Easy
+          </option>
 
-      <p>
-        {problems.length} problems
-      </p>
+          <option value="Medium">
+            Medium
+          </option>
 
-      {/* Display Filtered Problems */}
+          <option value="Hard">
+            Hard
+          </option>
+        </select>
 
-      {problems
-        .filter(
-          (item) =>
-            (filterDifficulty === "All" ||
-              item.difficulty === filterDifficulty) &&
-            (filterTopic === "All" ||
-              item.topic === filterTopic)
-        )
-        .map((item) => (
+        <select
+          value={filterTopic}
+          onChange={(e) => setFilterTopic(e.target.value)}
+        >
+          <option value="All">
+            All Topics
+          </option>
 
-          <div key={item.id}>
-
-            <h4>
-              {item.problem}
-            </h4>
-
-            <p>
-              Topic: {item.topic}
-            </p>
-
-            <p>
-              Difficulty: {item.difficulty}
-            </p>
-
-            <button
-              onClick={() => handleEdit(item)}
+          {topics.map((topic) => (
+            <option
+              key={topic}
+              value={topic}
             >
-              Edit
-            </button>
+              {topic}
+            </option>
+          ))}
 
-            <button
-              onClick={() => handleDelete(item.id)}
-            >
-              Delete
-            </button>
+        </select>
 
-            <hr />
-
-          </div>
-
-        ))}
+      </div>
 
     </div>
-  );
+
+    {/* Problems */}
+    <div className="dsa-card">
+
+      <div className="dsa-problems-header">
+
+        <div>
+          <h2>Problems Solved</h2>
+
+          <p>
+            {problems.length} problems
+          </p>
+        </div>
+
+      </div>
+
+      <div className="dsa-problem-list">
+
+        {problems
+          .filter(
+            (item) =>
+              (filterDifficulty === "All" ||
+                item.difficulty === filterDifficulty) &&
+              (filterTopic === "All" ||
+                item.topic === filterTopic)
+          )
+          .map((item) => (
+
+            <div
+              className="dsa-problem"
+              key={item.id}
+            >
+
+              <div className="dsa-problem-info">
+
+                <h3>
+                  {item.problem}
+                </h3>
+
+                <p>
+                  Topic: {item.topic}
+                </p>
+
+                <span
+                  className={`dsa-difficulty ${item.difficulty.toLowerCase()}`}
+                >
+                  {item.difficulty}
+                </span>
+
+              </div>
+
+              <div className="dsa-actions">
+
+                <button
+                  className="dsa-edit-btn"
+                  onClick={() => handleEdit(item)}
+                >
+                  Edit
+                </button>
+
+                <button
+                  className="dsa-delete-btn"
+                  onClick={() => handleDelete(item.id)}
+                >
+                  Delete
+                </button>
+
+              </div>
+
+            </div>
+
+          ))}
+
+      </div>
+
+    </div>
+
+  </div>
+);
 }
 
 export default DsaTracker;

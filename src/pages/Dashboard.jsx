@@ -475,7 +475,9 @@ function Dashboard() {
         <div>
           <p className="pp-date">{todayText}</p>
           <h1>Welcome back{firstName ? `, ${firstName}` : ""} 👋</h1>
-          <p className="pp-muted">Here's your placement preparation overview.</p>
+          <p className="pp-muted" style={{ color: "black" }}>
+  Here's your placement preparation overview.
+</p>
         </div>
         <Link to="/profile" className="pp-avatar" title="Profile">
           {photoURL ? <img src={photoURL} alt="Profile" /> : <span>{initials}</span>}

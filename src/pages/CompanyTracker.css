@@ -1,0 +1,417 @@
+/* =========================
+   PREPPILOT COMPANY TRACKER
+========================= */
+
+.company-page {
+  --company-bg: #afbbd2;
+  --company-card: #ffffff;
+
+  --company-text: #172033;
+  --company-muted: #667085;
+
+  --company-border: #e3e8f3;
+
+  --company-primary: #6366f1;
+  --company-primary-hover: #7c3aed;
+  --company-primary-soft: #eef0ff;
+
+  min-height: 100vh;
+  width: 100%;
+
+  padding: 28px 24px 48px;
+
+  background: #afbbd2;
+
+  color: var(--company-text);
+
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.company-header {
+  text-align: center;
+
+  margin-bottom: 24px;
+}
+
+.company-header h1 {
+  margin: 0;
+
+  font-size: 28px;
+
+  font-weight: 750;
+
+  color: #4f46e5;
+}
+
+.company-header p {
+  margin: 8px 0 0;
+
+  font-size: 14px;
+
+  color: #475569;
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.company-container {
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.company-card {
+  background: #ffffff;
+
+  border: 1px solid var(--company-border);
+
+  border-radius: 16px;
+
+  padding: 20px;
+
+  box-shadow:
+    0 4px 14px rgba(31, 41, 55, 0.08);
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.company-card:hover {
+  background: #faf9ff;
+
+  border-color: #ddd6fe;
+
+  box-shadow:
+    0 10px 28px rgba(124, 58, 237, 0.10);
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================
+   HEADINGS
+========================= */
+
+.company-card h2 {
+  margin: 0 0 16px;
+
+  font-size: 17px;
+
+  font-weight: 650;
+
+  color: #20253a;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.company-form {
+  display: grid;
+
+  grid-template-columns:
+    1.4fr 1.4fr 1fr 1fr auto;
+
+  gap: 12px;
+
+  align-items: center;
+}
+
+.company-form input,
+.company-form select {
+  width: 100%;
+
+  height: 42px;
+
+  padding: 0 12px;
+
+  border: 1px solid #d8deeb;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: var(--company-text);
+
+  font-size: 14px;
+
+  outline: none;
+
+  box-sizing: border-box;
+}
+
+.company-form input:focus,
+.company-form select:focus {
+  border-color: #818cf8;
+
+  box-shadow:
+    0 0 0 3px rgba(99, 102, 241, 0.10);
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.company-add-btn {
+  height: 42px;
+
+  padding: 0 18px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #6366f1;
+
+  color: white;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.company-add-btn:hover {
+  background: #7c3aed;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 6px 14px rgba(124, 58, 237, 0.18);
+}
+
+
+/* =========================
+   COMPANY LIST
+========================= */
+
+.company-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.company-item {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 16px;
+
+  padding: 16px;
+
+  border: 1px solid #e7ebf3;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.company-item:hover {
+  background: #faf9ff;
+
+  border-color: #ddd6fe;
+
+  box-shadow:
+    0 6px 18px rgba(124, 58, 237, 0.07);
+}
+
+
+/* =========================
+   COMPANY INFO
+========================= */
+
+.company-info {
+  flex: 1;
+
+  min-width: 0;
+}
+
+.company-info h3 {
+  margin: 0 0 5px;
+
+  font-size: 15px;
+
+  font-weight: 650;
+
+  color: #20253a;
+}
+
+.company-info p {
+  margin: 2px 0;
+
+  font-size: 13px;
+
+  color: var(--company-muted);
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.company-status {
+  display: inline-block;
+
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+
+  font-weight: 650;
+}
+
+.company-status.applied {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+.company-status.interview {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.company-status.selected {
+  background: #ecfdf3;
+  color: #15803d;
+}
+
+.company-status.rejected {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.company-actions {
+  display: flex;
+
+  gap: 8px;
+
+  flex-shrink: 0;
+}
+
+.company-actions button {
+  height: 34px;
+
+  padding: 0 12px;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.company-edit-btn {
+  border: 1px solid #c7d2fe;
+
+  background: #eef2ff;
+
+  color: #4f46e5;
+}
+
+.company-edit-btn:hover {
+  background: #e0e7ff;
+}
+
+.company-delete-btn {
+  border: 1px solid #fecaca;
+
+  background: #fff5f5;
+
+  color: #dc2626;
+}
+
+.company-delete-btn:hover {
+  background: #fee2e2;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 950px) {
+  .company-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .company-add-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 650px) {
+  .company-page {
+    padding: 20px 16px 40px;
+  }
+
+  .company-header h1 {
+    font-size: 24px;
+  }
+
+  .company-form {
+    grid-template-columns: 1fr;
+  }
+
+  .company-item {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .company-actions {
+    width: 100%;
+  }
+
+  .company-actions button {
+    flex: 1;
+  }
+}

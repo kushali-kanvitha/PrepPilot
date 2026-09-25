@@ -15,6 +15,8 @@ import Analytics from "./pages/Analytics";
 import Profile from "./pages/Profile";
 import Layout from "./components/common/Layout";
 import AIDoubtSolver from "./pages/AIDoubtSolver";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+
 
 function App() {
   return (
@@ -55,6 +57,10 @@ function App() {
     </ProtectedRoute>
   }
 />
+ 
+    <Route path="/forgot-password" element={<ForgotPassword />} />
+    <Route path="/login" element={<Login />} />
+  
 <Route
   path="/ats"
   element={
@@ -133,6 +139,7 @@ function App() {
     </ProtectedRoute>
   }
 />
+<Route path="/login" element={<Login />} />
 <Route
   path="/interview"
   element={

@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 
 import { db, auth } from "../firebase/firebase";
+import "./CompanyTracker.css";
 
 function CompanyTracker() {
   const [company, setCompany] = useState("");
@@ -107,27 +108,68 @@ const handleEdit = async (item) => {
 };
 
   return (
-    <div>
+  <div className="company-page">
+
+    <div className="company-header">
       <h1>Company Tracker</h1>
 
       <p>
         Track your placement applications and interviews.
       </p>
+    </div>
 
-      <form onSubmit={handleAddCompany}>
+    <div className="company-container">
 
-        <input
-          type="text"
-          placeholder="Company name"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-          required
-        />
+      {/* Add Company */}
+      <div className="company-card">
+
+        <h2>Add Company</h2>
+
+        <form
+          className="company-form"
+          onSubmit={handleAddCompany}
+        >
+
+          <input
+            type="text"
+            placeholder="Company name"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+            required
+          />
+
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
+            <option value="Applied">Applied</option>
+            <option value="OA">OA</option>
+            <option value="Interview">Interview</option>
+            <option value="Selected">Selected</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+
+          <button
+            className="company-add-btn"
+            type="submit"
+          >
+            Add Company
+          </button>
+
+        </form>
+
+      </div>
+
+      {/* Filters */}
+      <div className="company-card">
+
+        <h2>Filter Companies</h2>
 
         <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
+          value={filterStatus}
+          onChange={(e) => setFilterStatus(e.target.value)}
         >
+          <option value="All">All Statuses</option>
           <option value="Applied">Applied</option>
           <option value="OA">OA</option>
           <option value="Interview">Interview</option>
@@ -135,58 +177,80 @@ const handleEdit = async (item) => {
           <option value="Rejected">Rejected</option>
         </select>
 
-        <button type="submit">
-          Add Company
-        </button>
+      </div>
 
-      </form>
+      {/* Company List */}
+      <div className="company-card">
 
-      <hr />
-     <select
-  value={filterStatus}
-  onChange={(e) => setFilterStatus(e.target.value)}
->
-  <option value="All">All Statuses</option>
-  <option value="Applied">Applied</option>
-  <option value="OA">OA</option>
-  <option value="Interview">Interview</option>
-  <option value="Selected">Selected</option>
-  <option value="Rejected">Rejected</option>
-</select>
-      <h3>My Companies</h3>
+        <h2>My Companies</h2>
 
-      <p>
-        {companies.length} companies
-      </p>
+        <p>
+          {companies.length} companies
+        </p>
 
-      {companies
-  .filter(
-    (item) =>
-      filterStatus === "All" ||
-      item.status === filterStatus
-  )
-  .map((item) => (
-  <div key={item.id}>
-    <h4>{item.company}</h4>
+        <div className="company-list">
 
-    <p>
-      Status: {item.status}
-    </p>
+          {companies
+            .filter(
+              (item) =>
+                filterStatus === "All" ||
+                item.status === filterStatus
+            )
+            .map((item) => (
 
-    <button onClick={() => handleEdit(item)}>
-      Edit
-    </button>
+              <div
+                className="company-item"
+                key={item.id}
+              >
 
-    <button onClick={() => handleDelete(item.id)}>
-      Delete
-    </button>
+                <div className="company-info">
 
-    <hr />
-  </div>
-))}
+                  <h3>
+                    {item.company}
+                  </h3>
+
+                  <p>
+                    Status:
+                  </p>
+
+                  <span
+                    className={`company-status ${item.status.toLowerCase()}`}
+                  >
+                    {item.status}
+                  </span>
+
+                </div>
+
+                <div className="company-actions">
+
+                  <button
+                    className="company-edit-btn"
+                    onClick={() => handleEdit(item)}
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    className="company-delete-btn"
+                    onClick={() => handleDelete(item.id)}
+                  >
+                    Delete
+                  </button>
+
+                </div>
+
+              </div>
+
+            ))}
+
+        </div>
+
+      </div>
 
     </div>
-  );
+
+  </div>
+);
 }
 
 export default CompanyTracker;

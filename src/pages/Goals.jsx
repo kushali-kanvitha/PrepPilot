@@ -14,6 +14,8 @@ import {
   updateDoc
 } from "firebase/firestore";
 
+import "./Goals.css";
+
 function Goals() {
   const [goals, setGoals] = useState([]);
 
@@ -149,6 +151,11 @@ function Goals() {
     setCompleted(goal.completed || 0);
     setPeriod(goal.period || "Weekly");
     setEditingId(goal.id);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   };
 
   const handleDelete = async (id) => {
@@ -193,186 +200,323 @@ function Goals() {
   };
 
   return (
-    <div>
-      <h1>Goals</h1>
+    <div className="goals-page">
 
-      <p>
-        Set and track your placement
-        preparation goals.
-      </p>
+      <div className="goals-container">
 
-      <hr />
+        {/* HEADER */}
 
-      <h2>
-        {editingId
-          ? "Edit Goal"
-          : "Add Goal"}
-      </h2>
+        <div className="goals-header">
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Example: Solve DSA problems"
-          value={goalText}
-          onChange={(e) =>
-            setGoalText(e.target.value)
-          }
-          required
-        />
+          <h1>Goals</h1>
 
-        <br />
-        <br />
+          <p>
+            Set and track your placement
+            preparation goals.
+          </p>
 
-        <label>Target:</label>{" "}
+        </div>
 
-        <input
-          type="number"
-          min="1"
-          value={target}
-          onChange={(e) =>
-            setTarget(e.target.value)
-          }
-          required
-        />
 
-        <br />
-        <br />
+        {/* ADD / EDIT GOAL */}
 
-        <label>Completed:</label>{" "}
+        <div className="goals-card">
 
-        <input
-          type="number"
-          min="0"
-          value={completed}
-          onChange={(e) =>
-            setCompleted(e.target.value)
-          }
-          required
-        />
+          <h2>
+            {editingId
+              ? "Edit Goal"
+              : "Add Goal"}
+          </h2>
 
-        <br />
-        <br />
-
-        <label>Period:</label>{" "}
-
-        <select
-          value={period}
-          onChange={(e) =>
-            setPeriod(e.target.value)
-          }
-        >
-          <option value="Daily">
-            Daily
-          </option>
-
-          <option value="Weekly">
-            Weekly
-          </option>
-
-          <option value="Monthly">
-            Monthly
-          </option>
-        </select>
-
-        <br />
-        <br />
-
-        <button type="submit">
-          {editingId
-            ? "Update Goal"
-            : "Add Goal"}
-        </button>
-
-        {" "}
-
-        {editingId && (
-          <button
-            type="button"
-            onClick={resetForm}
+          <form
+            className="goals-form"
+            onSubmit={handleSubmit}
           >
-            Cancel Edit
-          </button>
-        )}
-      </form>
 
-      <hr />
+            <div className="form-group">
 
-      <h2>My Goals</h2>
+              <label>
+                Goal
+              </label>
 
-      {goals.length === 0 ? (
-        <p>
-          No goals added yet.
-        </p>
-      ) : (
-        goals.map((goal) => {
-          const progress =
-            goal.target === 0
-              ? 0
-              : Math.round(
-                  (goal.completed /
-                    goal.target) *
-                    100
-                );
+              <input
+                type="text"
+                placeholder="Example: Solve DSA problems"
+                value={goalText}
+                onChange={(e) =>
+                  setGoalText(e.target.value)
+                }
+                required
+              />
 
-          return (
-            <div key={goal.id}>
+            </div>
+
+
+            <div className="form-row">
+
+              <div className="form-group">
+
+                <label>
+                  Target
+                </label>
+
+                <input
+                  type="number"
+                  min="1"
+                  value={target}
+                  placeholder="Example: 20"
+                  onChange={(e) =>
+                    setTarget(e.target.value)
+                  }
+                  required
+                />
+
+              </div>
+
+
+              <div className="form-group">
+
+                <label>
+                  Completed
+                </label>
+
+                <input
+                  type="number"
+                  min="0"
+                  value={completed}
+                  onChange={(e) =>
+                    setCompleted(e.target.value)
+                  }
+                  required
+                />
+
+              </div>
+
+
+              <div className="form-group">
+
+                <label>
+                  Period
+                </label>
+
+                <select
+                  value={period}
+                  onChange={(e) =>
+                    setPeriod(e.target.value)
+                  }
+                >
+
+                  <option value="Daily">
+                    Daily
+                  </option>
+
+                  <option value="Weekly">
+                    Weekly
+                  </option>
+
+                  <option value="Monthly">
+                    Monthly
+                  </option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+
+            <div className="goal-form-actions">
+
+              <button
+                type="submit"
+                className="primary-btn"
+              >
+                {editingId
+                  ? "Update Goal"
+                  : "Add Goal"}
+              </button>
+
+              {editingId && (
+
+                <button
+                  type="button"
+                  className="cancel-btn"
+                  onClick={resetForm}
+                >
+                  Cancel Edit
+                </button>
+
+              )}
+
+            </div>
+
+          </form>
+
+        </div>
+
+
+        {/* GOAL LIST */}
+
+        <div className="goals-card">
+
+          <div className="goals-list-header">
+
+            <div>
+
+              <h2>
+                My Goals
+              </h2>
+
+              <p>
+                {goals.length} goal
+                {goals.length !== 1
+                  ? "s"
+                  : ""}
+              </p>
+
+            </div>
+
+          </div>
+
+
+          {goals.length === 0 ? (
+
+            <div className="empty-goals">
+
+              <div className="empty-goal-icon">
+                🎯
+              </div>
+
               <h3>
-                {goal.goalText}
+                No goals added yet
               </h3>
 
               <p>
-                📅 Period:{" "}
-                {goal.period}
+                Add your first placement
+                preparation goal above.
               </p>
 
-              <p>
-                🎯 Progress:{" "}
-                {goal.completed} /{" "}
-                {goal.target}
-              </p>
-
-              <progress
-                value={goal.completed}
-                max={goal.target}
-              />
-
-              <p>
-                {progress}% complete
-              </p>
-
-              <button
-                onClick={() =>
-                  handleIncrease(goal)
-                }
-              >
-                +1 Completed
-              </button>
-
-              {" "}
-
-              <button
-                onClick={() =>
-                  handleEdit(goal)
-                }
-              >
-                Edit
-              </button>
-
-              {" "}
-
-              <button
-                onClick={() =>
-                  handleDelete(goal.id)
-                }
-              >
-                Delete
-              </button>
-
-              <hr />
             </div>
-          );
-        })
-      )}
+
+          ) : (
+
+            <div className="goals-list">
+
+              {goals.map((goal) => {
+
+                const progress =
+                  goal.target === 0
+                    ? 0
+                    : Math.round(
+                        (goal.completed /
+                          goal.target) *
+                          100
+                      );
+
+                return (
+
+                  <div
+                    className="goal-item"
+                    key={goal.id}
+                  >
+
+                    <div className="goal-top">
+
+                      <div>
+
+                        <h3>
+                          {goal.goalText}
+                        </h3>
+
+                        <span className="period-badge">
+                          {goal.period}
+                        </span>
+
+                      </div>
+
+                      <div className="progress-percentage">
+                        {progress}%
+                      </div>
+
+                    </div>
+
+
+                    <div className="goal-progress-info">
+
+                      <span>
+                        {goal.completed} / {goal.target} completed
+                      </span>
+
+                      <span>
+                        {goal.target - goal.completed} remaining
+                      </span>
+
+                    </div>
+
+
+                    <div className="progress-bar">
+
+                      <div
+                        className="progress-fill"
+                        style={{
+                          width: `${progress}%`
+                        }}
+                      />
+
+                    </div>
+
+
+                    <div className="goal-actions">
+
+                      <button
+                        className="complete-btn"
+                        onClick={() =>
+                          handleIncrease(goal)
+                        }
+                        disabled={
+                          goal.completed >=
+                          goal.target
+                        }
+                      >
+                        +1 Completed
+                      </button>
+
+
+                      <button
+                        className="edit-btn"
+                        onClick={() =>
+                          handleEdit(goal)
+                        }
+                      >
+                        Edit
+                      </button>
+
+
+                      <button
+                        className="delete-btn"
+                        onClick={() =>
+                          handleDelete(goal.id)
+                        }
+                      >
+                        Delete
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                );
+
+              })}
+
+            </div>
+
+          )}
+
+        </div>
+
+      </div>
+
     </div>
   );
 }

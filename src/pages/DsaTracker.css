@@ -1,0 +1,482 @@
+/* =========================
+   PREPPILOT DSA TRACKER
+   Light blue + violet theme
+========================= */
+
+.dsa-page {
+  --dsa-bg: #afbbd2;
+  --dsa-card: #ffffff;
+
+  --dsa-text: #172033;
+  --dsa-muted: #667085;
+
+  --dsa-border: #e3e8f3;
+
+  --dsa-primary: #6366f1;
+  --dsa-primary-hover: #7c3aed;
+  --dsa-primary-soft: #eef0ff;
+
+  --dsa-success: #16a34a;
+  --dsa-success-bg: #ecfdf3;
+
+  --dsa-warning: #d97706;
+  --dsa-warning-bg: #fffbeb;
+
+  --dsa-danger: #dc2626;
+  --dsa-danger-bg: #fef2f2;
+
+  width: 100%;
+  max-width: 1200px;
+
+  min-height: 100vh;
+
+  margin: 0 auto;
+
+  padding: 28px 24px 48px;
+
+  background: var(--dsa-bg);
+
+  color: var(--dsa-text);
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.dsa-header {
+  text-align: center;
+
+  padding: 8px 0 4px;
+}
+
+.dsa-header h1 {
+  margin: 0;
+
+  font-size: 28px;
+
+  font-weight: 750;
+
+  letter-spacing: -0.02em;
+
+  color: #4f46e5;
+}
+
+.dsa-header p {
+  margin: 8px 0 0;
+
+  font-size: 14px;
+
+  color: #64748b;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.dsa-card {
+  background: rgba(255, 255, 255, 0.96);
+
+  border: 1px solid var(--dsa-border);
+
+  border-radius: 16px;
+
+  padding: 20px;
+
+  box-shadow:
+    0 1px 2px rgba(17, 24, 39, 0.03),
+    0 8px 24px rgba(99, 102, 241, 0.05);
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.dsa-card:hover {
+  background: #faf9ff;
+
+  border-color: #ddd6fe;
+
+  box-shadow:
+    0 10px 28px rgba(124, 58, 237, 0.08);
+}
+
+
+/* =========================
+   CARD HEADINGS
+========================= */
+
+.dsa-card h2 {
+  margin: 0 0 14px;
+
+  font-size: 17px;
+
+  font-weight: 650;
+
+  color: #20253a;
+}
+
+.dsa-problems-header h2 {
+  margin-bottom: 4px;
+}
+
+.dsa-problems-header p {
+  margin: 0;
+
+  font-size: 13px;
+
+  color: var(--dsa-muted);
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.dsa-form {
+  display: grid;
+
+  grid-template-columns:
+    2fr 1.4fr 1fr auto;
+
+  gap: 12px;
+
+  align-items: center;
+}
+
+.dsa-form input,
+.dsa-form select,
+.dsa-filters select {
+  width: 100%;
+
+  height: 42px;
+
+  padding: 0 12px;
+
+  border: 1px solid #d8deeb;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: var(--dsa-text);
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.dsa-form input::placeholder {
+  color: #98a2b3;
+}
+
+.dsa-form input:focus,
+.dsa-form select:focus,
+.dsa-filters select:focus {
+  border-color: #818cf8;
+
+  box-shadow:
+    0 0 0 3px rgba(99, 102, 241, 0.10);
+}
+
+
+/* =========================
+   ADD BUTTON
+========================= */
+
+.dsa-add-btn {
+  height: 42px;
+
+  padding: 0 18px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: var(--dsa-primary);
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.dsa-add-btn:hover {
+  background: var(--dsa-primary-hover);
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 6px 14px rgba(124, 58, 237, 0.18);
+}
+
+
+/* =========================
+   FILTERS
+========================= */
+
+.dsa-filter-header {
+  margin-bottom: 2px;
+}
+
+.dsa-filters {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+
+  max-width: 600px;
+}
+
+
+/* =========================
+   PROBLEM LIST
+========================= */
+
+.dsa-problem-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.dsa-problem {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 16px;
+
+  padding: 15px 16px;
+
+  border: 1px solid #e7ebf3;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.dsa-problem:hover {
+  background: #faf9ff;
+
+  border-color: #ddd6fe;
+
+  box-shadow:
+    0 6px 18px rgba(124, 58, 237, 0.07);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================
+   PROBLEM INFO
+========================= */
+
+.dsa-problem-info {
+  min-width: 0;
+
+  flex: 1;
+}
+
+.dsa-problem-info h3 {
+  margin: 0 0 6px;
+
+  font-size: 15px;
+
+  font-weight: 650;
+
+  color: #20253a;
+
+  overflow-wrap: anywhere;
+}
+
+.dsa-problem-info p {
+  margin: 0 0 8px;
+
+  font-size: 13px;
+
+  color: var(--dsa-muted);
+}
+
+
+/* =========================
+   DIFFICULTY
+========================= */
+
+.dsa-difficulty {
+  display: inline-block;
+
+  padding: 4px 9px;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+
+  font-weight: 650;
+}
+
+.dsa-difficulty.easy {
+  background: var(--dsa-success-bg);
+
+  color: var(--dsa-success);
+}
+
+.dsa-difficulty.medium {
+  background: var(--dsa-warning-bg);
+
+  color: var(--dsa-warning);
+}
+
+.dsa-difficulty.hard {
+  background: var(--dsa-danger-bg);
+
+  color: var(--dsa-danger);
+}
+
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.dsa-actions {
+  display: flex;
+
+  gap: 8px;
+
+  flex-shrink: 0;
+}
+
+.dsa-actions button {
+  height: 34px;
+
+  padding: 0 12px;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+
+/* Edit */
+
+.dsa-edit-btn {
+  border: 1px solid #c7d2fe;
+
+  background: #eef2ff;
+
+  color: #4f46e5;
+}
+
+.dsa-edit-btn:hover {
+  background: #e0e7ff;
+
+  border-color: #a5b4fc;
+}
+
+
+/* Delete */
+
+.dsa-delete-btn {
+  border: 1px solid #fecaca;
+
+  background: #fff5f5;
+
+  color: #dc2626;
+}
+
+.dsa-delete-btn:hover {
+  background: #fee2e2;
+
+  border-color: #fca5a5;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .dsa-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dsa-add-btn {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 650px) {
+  .dsa-page {
+    padding: 20px 16px 40px;
+  }
+
+  .dsa-header h1 {
+    font-size: 24px;
+  }
+
+  .dsa-form {
+    grid-template-columns: 1fr;
+  }
+
+  .dsa-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .dsa-problem {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .dsa-actions {
+    width: 100%;
+  }
+
+  .dsa-actions button {
+    flex: 1;
+  }
+}

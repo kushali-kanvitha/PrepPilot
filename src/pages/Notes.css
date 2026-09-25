@@ -1,0 +1,358 @@
+/* ================================
+   NOTES PAGE
+================================ */
+
+.notes-page {
+  min-height: 100vh;
+  background: #afbbd2;
+  padding: 28px 24px 48px;
+}
+
+.notes-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.notes-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.notes-header h1 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.notes-header p {
+  margin: 8px 0 0;
+  color: #4b5563;
+  font-size: 15px;
+}
+
+
+/* ================================
+   CARD
+================================ */
+
+.notes-card {
+  background: white;
+  border: 1px solid #e3e8f3;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 14px rgba(31, 41, 55, 0.08);
+}
+
+.notes-card h2 {
+  margin: 0 0 20px;
+  color: #1f2937;
+  font-size: 21px;
+}
+
+
+/* ================================
+   FORM
+================================ */
+
+.notes-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-group label {
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+
+  padding: 11px 12px;
+
+  background: white;
+  color: #1f2937;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.form-group input {
+  height: 42px;
+}
+
+.form-group textarea {
+  min-height: 170px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #6366f1;
+
+  box-shadow:
+    0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #9ca3af;
+}
+
+
+/* ================================
+   FORM BUTTONS
+================================ */
+
+.notes-form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.primary-btn,
+.cancel-btn,
+.edit-btn,
+.delete-btn {
+  border: none;
+  border-radius: 9px;
+
+  padding: 10px 17px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.primary-btn {
+  background: #6366f1;
+  color: white;
+}
+
+.primary-btn:hover {
+  background: #7c3aed;
+}
+
+.cancel-btn {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.cancel-btn:hover {
+  background: #d1d5db;
+}
+
+
+/* ================================
+   NOTES LIST HEADER
+================================ */
+
+.notes-list-header {
+  margin-bottom: 18px;
+}
+
+.notes-list-header h2 {
+  margin-bottom: 4px;
+}
+
+.notes-list-header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+
+/* ================================
+   NOTES LIST
+================================ */
+
+.notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.note-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 20px;
+
+  padding: 20px;
+
+  background: #f9fafc;
+
+  border: 1px solid #e3e8f3;
+  border-radius: 14px;
+
+  transition: 0.2s ease;
+}
+
+.note-item:hover {
+  box-shadow:
+    0 5px 16px rgba(31, 41, 55, 0.08);
+
+  transform: translateY(-1px);
+}
+
+
+/* ================================
+   NOTE CONTENT
+================================ */
+
+.note-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.note-content h3 {
+  margin: 0 0 10px;
+
+  color: #1f2937;
+  font-size: 18px;
+}
+
+.note-content p {
+  margin: 0;
+
+  color: #4b5563;
+
+  font-size: 14px;
+  line-height: 1.7;
+
+  white-space: pre-wrap;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* ================================
+   NOTE ACTIONS
+================================ */
+
+.note-actions {
+  display: flex;
+  gap: 9px;
+  flex-shrink: 0;
+}
+
+.edit-btn {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+.edit-btn:hover {
+  background: #e0e7ff;
+}
+
+.delete-btn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.delete-btn:hover {
+  background: #fecaca;
+}
+
+
+/* ================================
+   EMPTY STATE
+================================ */
+
+.empty-notes {
+  text-align: center;
+
+  padding: 45px 20px;
+
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+
+  background: #f8fafc;
+}
+
+.empty-notes-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.empty-notes h3 {
+  margin: 0;
+
+  color: #374151;
+}
+
+.empty-notes p {
+  margin-top: 8px;
+
+  color: #6b7280;
+  font-size: 14px;
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 650px) {
+
+  .notes-page {
+    padding: 20px 14px 35px;
+  }
+
+  .notes-card {
+    padding: 18px;
+  }
+
+  .notes-header h1 {
+    font-size: 27px;
+  }
+
+  .notes-form-actions {
+    flex-direction: column;
+  }
+
+  .primary-btn,
+  .cancel-btn {
+    width: 100%;
+  }
+
+  .note-item {
+    flex-direction: column;
+  }
+
+  .note-actions {
+    width: 100%;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    flex: 1;
+  }
+
+}

@@ -14,6 +14,8 @@ import {
   updateDoc
 } from "firebase/firestore";
 
+import "./InterviewPrep.css";
+
 function InterviewPrep() {
 
   // --------------------------------------------------
@@ -43,6 +45,7 @@ function InterviewPrep() {
     "Do you have any questions for us?"
   ];
 
+
   const defaultTechnicalQuestions = [
     "What are the four pillars of OOP?",
     "What is the difference between an array and a linked list?",
@@ -60,6 +63,7 @@ function InterviewPrep() {
     "What is the difference between Java and C++?",
     "What is React?"
   ];
+
 
   // --------------------------------------------------
   // STATES
@@ -91,6 +95,7 @@ function InterviewPrep() {
 
   const [showAddQuestion, setShowAddQuestion] =
     useState(false);
+
 
   // --------------------------------------------------
   // LOAD QUESTIONS FROM FIRESTORE
@@ -127,14 +132,17 @@ function InterviewPrep() {
           },
 
           (error) => {
+
             console.log(
               "Error getting interview questions:",
               error
             );
+
           }
         );
 
       });
+
 
     return () => {
 
@@ -148,6 +156,7 @@ function InterviewPrep() {
 
   }, []);
 
+
   // --------------------------------------------------
   // CREATE DISPLAY LIST
   // --------------------------------------------------
@@ -158,15 +167,18 @@ function InterviewPrep() {
         item.category === activeCategory
     );
 
+
   const firestoreQuestionTexts =
     firestoreQuestions.map(
       (item) => item.question
     );
 
+
   const defaultQuestions =
     activeCategory === "HR"
       ? defaultHRQuestions
       : defaultTechnicalQuestions;
+
 
   const defaultQuestionObjects =
     defaultQuestions
@@ -184,10 +196,12 @@ function InterviewPrep() {
         isDefault: true
       }));
 
+
   const displayedQuestions = [
     ...firestoreQuestions,
     ...defaultQuestionObjects
   ];
+
 
   // --------------------------------------------------
   // PROGRESS
@@ -200,16 +214,19 @@ function InterviewPrep() {
         item.answer.trim() !== ""
     ).length;
 
+
   const totalQuestions =
     displayedQuestions.length;
+
 
   const progress =
     totalQuestions === 0
       ? 0
       : Math.round(
           (answeredCount / totalQuestions) *
-            100
+          100
         );
+
 
   // --------------------------------------------------
   // SELECT QUESTION
@@ -232,6 +249,7 @@ function InterviewPrep() {
     setEditingId(item.id);
   };
 
+
   // --------------------------------------------------
   // SAVE ANSWER
   // --------------------------------------------------
@@ -241,19 +259,28 @@ function InterviewPrep() {
     e.preventDefault();
 
     if (!selectedQuestion) {
+
       alert("Please select a question.");
+
       return;
     }
+
 
     if (!auth.currentUser) {
+
       alert("Please login first.");
+
       return;
     }
 
+
     if (!answer.trim()) {
+
       alert("Please write your answer.");
+
       return;
     }
+
 
     try {
 
@@ -312,13 +339,16 @@ function InterviewPrep() {
         alert(
           "Answer saved successfully!"
         );
+
       }
+
 
       setSelectedQuestion(null);
       setAnswer("");
       setCompany("");
       setRound(activeCategory);
       setEditingId(null);
+
 
     } catch (error) {
 
@@ -327,8 +357,11 @@ function InterviewPrep() {
       alert(
         "Failed to save answer."
       );
+
     }
+
   };
+
 
   // --------------------------------------------------
   // ADD NEW QUESTION
@@ -339,18 +372,24 @@ function InterviewPrep() {
     e.preventDefault();
 
     if (!questionText.trim()) {
+
       alert(
         "Please enter the question."
       );
+
       return;
     }
 
+
     if (!auth.currentUser) {
+
       alert(
         "Please login first."
       );
+
       return;
     }
+
 
     try {
 
@@ -383,14 +422,17 @@ function InterviewPrep() {
         }
       );
 
+
       alert(
         "Interview question added!"
       );
+
 
       setQuestionText("");
       setCompany("");
       setRound(activeCategory);
       setShowAddQuestion(false);
+
 
     } catch (error) {
 
@@ -399,8 +441,11 @@ function InterviewPrep() {
       alert(
         "Failed to add question."
       );
+
     }
+
   };
+
 
   // --------------------------------------------------
   // EDIT QUESTION DETAILS
@@ -409,11 +454,14 @@ function InterviewPrep() {
   const handleEditQuestion = async () => {
 
     if (!editingId) {
+
       alert(
         "This is a default question. Save an answer first to store it."
       );
+
       return;
     }
+
 
     try {
 
@@ -438,9 +486,11 @@ function InterviewPrep() {
         }
       );
 
+
       alert(
         "Question details updated!"
       );
+
 
     } catch (error) {
 
@@ -449,8 +499,11 @@ function InterviewPrep() {
       alert(
         "Failed to update question."
       );
+
     }
+
   };
+
 
   // --------------------------------------------------
   // DELETE QUESTION
@@ -460,20 +513,25 @@ function InterviewPrep() {
     async (id) => {
 
       if (!id) {
+
         alert(
           "Default questions cannot be deleted."
         );
+
         return;
       }
+
 
       const confirmDelete =
         window.confirm(
           "Delete this interview question and its answer?"
         );
 
+
       if (!confirmDelete) {
         return;
       }
+
 
       try {
 
@@ -485,18 +543,23 @@ function InterviewPrep() {
           )
         );
 
+
         if (
           editingId === id
         ) {
+
           setSelectedQuestion(null);
           setAnswer("");
           setCompany("");
           setEditingId(null);
+
         }
+
 
         alert(
           "Question deleted successfully!"
         );
+
 
       } catch (error) {
 
@@ -505,8 +568,11 @@ function InterviewPrep() {
         alert(
           "Failed to delete question."
         );
+
       }
+
     };
+
 
   // --------------------------------------------------
   // CHANGE CATEGORY
@@ -526,7 +592,9 @@ function InterviewPrep() {
       setRound(category);
 
       setEditingId(null);
+
     };
+
 
   // --------------------------------------------------
   // UI
@@ -534,381 +602,233 @@ function InterviewPrep() {
 
   return (
 
-    <div>
+    <div className="interview-page">
 
-      <h1>Interview Prep</h1>
 
-      <p>
-        Build your personal interview
-        question bank and prepare answers
-        based on real company interviews.
-      </p>
+      {/* =========================
+          HEADER
+      ========================= */}
 
-      <hr />
+      <div className="interview-header">
 
-      {/* CATEGORY TABS */}
+        <h1>
+          Interview Prep
+        </h1>
 
-      <div>
-
-        <button
-          onClick={() =>
-            handleCategoryChange("HR")
-          }
-        >
-          HR Questions
-        </button>
-
-        {" "}
-
-        <button
-          onClick={() =>
-            handleCategoryChange(
-              "Technical"
-            )
-          }
-        >
-          Technical Questions
-        </button>
+        <p>
+          Build your personal interview
+          question bank and prepare answers
+          based on real company interviews.
+        </p>
 
       </div>
 
-      <hr />
 
-      {/* PROGRESS */}
+      <div className="interview-container">
 
-      <h2>
-        {activeCategory} Preparation
-      </h2>
 
-      <p>
-        {answeredCount} /{" "}
-        {totalQuestions} questions
-        prepared
-      </p>
+        {/* =========================
+            CATEGORY TABS
+        ========================= */}
 
-      <progress
-        value={progress}
-        max="100"
-      />
+        <div className="interview-card">
 
-      <p>
-        {progress}% complete
-      </p>
+          <div className="category-tabs">
 
-      <hr />
+            <button
+              className={
+                activeCategory === "HR"
+                  ? "category-btn active"
+                  : "category-btn"
+              }
+              onClick={() =>
+                handleCategoryChange("HR")
+              }
+            >
+              HR Questions
+            </button>
 
-      {/* ADD QUESTION */}
 
-      <button
-        onClick={() =>
-          setShowAddQuestion(
-            !showAddQuestion
-          )
-        }
-      >
-        {showAddQuestion
-          ? "Cancel"
-          : "+ Add Interview Question"}
-      </button>
+            <button
+              className={
+                activeCategory === "Technical"
+                  ? "category-btn active"
+                  : "category-btn"
+              }
+              onClick={() =>
+                handleCategoryChange(
+                  "Technical"
+                )
+              }
+            >
+              Technical Questions
+            </button>
 
-      {showAddQuestion && (
-
-        <form
-          onSubmit={
-            handleAddQuestion
-          }
-        >
-
-          <h2>
-            Add Interview Question
-          </h2>
-
-          <input
-            type="text"
-            placeholder="Enter interview question"
-            value={questionText}
-            onChange={(e) =>
-              setQuestionText(
-                e.target.value
-              )
-            }
-            style={{
-              width: "400px"
-            }}
-            required
-          />
-
-          <br />
-          <br />
-
-          <input
-            type="text"
-            placeholder="Company name (Example: Visa)"
-            value={company}
-            onChange={(e) =>
-              setCompany(
-                e.target.value
-              )
-            }
-            style={{
-              width: "400px"
-            }}
-          />
-
-          <br />
-          <br />
-
-          <label>
-            Interview Round:
-          </label>
-
-          <select
-            value={round}
-            onChange={(e) =>
-              setRound(
-                e.target.value
-              )
-            }
-          >
-
-            <option value="HR">
-              HR
-            </option>
-
-            <option value="Technical">
-              Technical
-            </option>
-
-            <option value="Managerial">
-              Managerial
-            </option>
-
-          </select>
-
-          <br />
-          <br />
-
-          <button type="submit">
-            Add Question
-          </button>
-
-        </form>
-
-      )}
-
-      <hr />
-
-      {/* MAIN SECTION */}
-
-      <div
-        style={{
-          display: "flex",
-          gap: "40px",
-          alignItems: "flex-start"
-        }}
-      >
-
-        {/* QUESTION LIST */}
-
-        <div>
-
-          <h2>
-            {activeCategory} Questions
-          </h2>
-
-          {displayedQuestions.map(
-            (item, index) => {
-
-              const isAnswered =
-                item.answer &&
-                item.answer.trim() !== "";
-
-              return (
-
-                <div
-                  key={
-                    item.id ||
-                    `default-${index}`
-                  }
-                  style={{
-                    marginBottom:
-                      "12px"
-                  }}
-                >
-
-                  <button
-                    onClick={() =>
-                      handleQuestionSelect(
-                        item
-                      )
-                    }
-                  >
-
-                    {isAnswered
-                      ? "✅"
-                      : "⬜"}{" "}
-
-                    {index + 1}.{" "}
-
-                    {item.question}
-
-                  </button>
-
-                  {item.company && (
-
-                    <div>
-                      🏢 {item.company}
-                    </div>
-
-                  )}
-
-                  {item.round && (
-
-                    <small>
-                      Round:{" "}
-                      {item.round}
-                    </small>
-
-                  )}
-
-                </div>
-
-              );
-
-            }
-          )}
+          </div>
 
         </div>
 
-        {/* ANSWER PANEL */}
 
-        <div>
+        {/* =========================
+            PROGRESS
+        ========================= */}
 
-          <h2>
-            Your Preparation
-          </h2>
+        <div className="interview-card">
 
-          {!selectedQuestion ? (
+          <div className="progress-header">
 
-            <p>
-              Select a question to
-              prepare your answer.
-            </p>
+            <div>
 
-          ) : (
+              <h2>
+                {activeCategory} Preparation
+              </h2>
+
+              <p>
+                {answeredCount} /{" "}
+                {totalQuestions} questions prepared
+              </p>
+
+            </div>
+
+            <div className="progress-percentage">
+              {progress}%
+            </div>
+
+          </div>
+
+
+          <div className="progress-track">
+
+            <div
+              className="progress-fill"
+              style={{
+                width: `${progress}%`
+              }}
+            />
+
+          </div>
+
+
+          <p className="progress-text">
+            {progress}% complete
+          </p>
+
+        </div>
+
+
+        {/* =========================
+            ADD QUESTION
+        ========================= */}
+
+        <div className="interview-card">
+
+          <button
+            className="primary-btn"
+            onClick={() =>
+              setShowAddQuestion(
+                !showAddQuestion
+              )
+            }
+          >
+            {showAddQuestion
+              ? "Cancel"
+              : "+ Add Interview Question"}
+          </button>
+
+
+          {showAddQuestion && (
 
             <form
+              className="add-question-form"
               onSubmit={
-                handleSaveAnswer
+                handleAddQuestion
               }
             >
 
-              <h3>
-                {selectedQuestion.question}
-              </h3>
+              <h2>
+                Add Interview Question
+              </h2>
 
-              <p>
-                Category:{" "}
-                {selectedQuestion.category}
-              </p>
 
-              <label>
-                Company:
-              </label>
+              <div className="form-group">
 
-              <br />
+                <label>
+                  Interview Question
+                </label>
 
-              <input
-                type="text"
-                placeholder="Example: Visa"
-                value={company}
-                onChange={(e) =>
-                  setCompany(
-                    e.target.value
-                  )
-                }
-              />
+                <input
+                  type="text"
+                  placeholder="Enter interview question"
+                  value={questionText}
+                  onChange={(e) =>
+                    setQuestionText(
+                      e.target.value
+                    )
+                  }
+                  required
+                />
 
-              <br />
-              <br />
+              </div>
 
-              <label>
-                Interview Round:
-              </label>
 
-              <br />
+              <div className="form-group">
 
-              <select
-                value={round}
-                onChange={(e) =>
-                  setRound(
-                    e.target.value
-                  )
-                }
-              >
+                <label>
+                  Company
+                </label>
 
-                <option value="HR">
-                  HR
-                </option>
+                <input
+                  type="text"
+                  placeholder="Company name (Example: Visa)"
+                  value={company}
+                  onChange={(e) =>
+                    setCompany(
+                      e.target.value
+                    )
+                  }
+                />
 
-                <option value="Technical">
-                  Technical
-                </option>
+              </div>
 
-                <option value="Managerial">
-                  Managerial
-                </option>
 
-              </select>
+              <div className="form-group">
 
-              <br />
-              <br />
+                <label>
+                  Interview Round
+                </label>
 
-              <label>
-                Your Answer:
-              </label>
-
-              <br />
-
-              <textarea
-                rows="10"
-                cols="55"
-                placeholder="Write your answer here..."
-                value={answer}
-                onChange={(e) =>
-                  setAnswer(
-                    e.target.value
-                  )
-                }
-              />
-
-              <br />
-
-              <p>
-                Characters:{" "}
-                {answer.length}
-              </p>
-
-              <button type="submit">
-                {editingId
-                  ? "Update Answer"
-                  : "Save Answer"}
-              </button>
-
-              {" "}
-
-              {editingId && (
-
-                <button
-                  type="button"
-                  onClick={
-                    handleEditQuestion
+                <select
+                  value={round}
+                  onChange={(e) =>
+                    setRound(
+                      e.target.value
+                    )
                   }
                 >
-                  Update Question Details
-                </button>
 
-              )}
+                  <option value="HR">
+                    HR
+                  </option>
+
+                  <option value="Technical">
+                    Technical
+                  </option>
+
+                  <option value="Managerial">
+                    Managerial
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <button
+                className="primary-btn"
+                type="submit"
+              >
+                Add Question
+              </button>
 
             </form>
 
@@ -916,90 +836,403 @@ function InterviewPrep() {
 
         </div>
 
-      </div>
 
-      <hr />
+        {/* =========================
+            MAIN SECTION
+        ========================= */}
 
-      {/* SAVED QUESTIONS */}
+        <div className="interview-main">
 
-      <h2>
-        My Interview Questions
-      </h2>
 
-      {questions.length === 0 ? (
+          {/* =========================
+              QUESTION LIST
+          ========================= */}
 
-        <p>
-          You haven't added any
-          company-specific questions yet.
-        </p>
+          <div className="interview-card question-card">
 
-      ) : (
+            <h2>
+              {activeCategory} Questions
+            </h2>
 
-        questions
-          .filter(
-            (item) =>
-              item.category ===
-              activeCategory
-          )
-          .map((item) => (
 
-            <div
-              key={item.id}
-            >
+            <div className="question-list">
 
-              <h3>
-                {item.question}
-              </h3>
+              {displayedQuestions.map(
+                (item, index) => {
 
-              {item.company && (
+                  const isAnswered =
+                    item.answer &&
+                    item.answer.trim() !== "";
 
-                <p>
-                  🏢 Company:{" "}
-                  {item.company}
-                </p>
 
+                  const isSelected =
+                    selectedQuestion &&
+                    (
+                      selectedQuestion.id ===
+                      item.id
+                    );
+
+
+                  return (
+
+                    <div
+                      className={
+                        isSelected
+                          ? "question-item selected"
+                          : "question-item"
+                      }
+                      key={
+                        item.id ||
+                        `default-${index}`
+                      }
+                    >
+
+                      <button
+                        className="question-btn"
+                        onClick={() =>
+                          handleQuestionSelect(
+                            item
+                          )
+                        }
+                      >
+
+                        <span className="question-status">
+                          {isAnswered
+                            ? "✅"
+                            : "⬜"}
+                        </span>
+
+                        <span className="question-number">
+                          {index + 1}.
+                        </span>
+
+                        <span className="question-text">
+                          {item.question}
+                        </span>
+
+                      </button>
+
+
+                      <div className="question-meta">
+
+                        {item.company && (
+
+                          <span>
+                            🏢 {item.company}
+                          </span>
+
+                        )}
+
+
+                        {item.round && (
+
+                          <span>
+                            Round: {item.round}
+                          </span>
+
+                        )}
+
+                      </div>
+
+                    </div>
+
+                  );
+
+                }
               )}
-
-              <p>
-                📌 Round:{" "}
-                {item.round}
-              </p>
-
-              <p>
-                {item.answer
-                  ? "✅ Answer prepared"
-                  : "⬜ Answer not prepared"}
-              </p>
-
-              <button
-                onClick={() =>
-                  handleQuestionSelect(
-                    item
-                  )
-                }
-              >
-                Edit
-              </button>
-
-              {" "}
-
-              <button
-                onClick={() =>
-                  handleDeleteQuestion(
-                    item.id
-                  )
-                }
-              >
-                Delete
-              </button>
-
-              <hr />
 
             </div>
 
-          ))
+          </div>
 
-      )}
+
+          {/* =========================
+              ANSWER PANEL
+          ========================= */}
+
+          <div className="interview-card answer-card">
+
+            <h2>
+              Your Preparation
+            </h2>
+
+
+            {!selectedQuestion ? (
+
+              <div className="empty-state">
+
+                <div className="empty-icon">
+                  📝
+                </div>
+
+                <p>
+                  Select a question to prepare
+                  your answer.
+                </p>
+
+              </div>
+
+            ) : (
+
+              <form
+                className="answer-form"
+                onSubmit={
+                  handleSaveAnswer
+                }
+              >
+
+                <div className="selected-question">
+
+                  <span>
+                    Question
+                  </span>
+
+                  <h3>
+                    {selectedQuestion.question}
+                  </h3>
+
+                </div>
+
+
+                <p className="category-info">
+
+                  Category:{" "}
+                  <strong>
+                    {selectedQuestion.category}
+                  </strong>
+
+                </p>
+
+
+                <div className="form-group">
+
+                  <label>
+                    Company
+                  </label>
+
+                  <input
+                    type="text"
+                    placeholder="Example: Visa"
+                    value={company}
+                    onChange={(e) =>
+                      setCompany(
+                        e.target.value
+                      )
+                    }
+                  />
+
+                </div>
+
+
+                <div className="form-group">
+
+                  <label>
+                    Interview Round
+                  </label>
+
+                  <select
+                    value={round}
+                    onChange={(e) =>
+                      setRound(
+                        e.target.value
+                      )
+                    }
+                  >
+
+                    <option value="HR">
+                      HR
+                    </option>
+
+                    <option value="Technical">
+                      Technical
+                    </option>
+
+                    <option value="Managerial">
+                      Managerial
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <div className="form-group">
+
+                  <label>
+                    Your Answer
+                  </label>
+
+                  <textarea
+                    rows="10"
+                    placeholder="Write your answer here..."
+                    value={answer}
+                    onChange={(e) =>
+                      setAnswer(
+                        e.target.value
+                      )
+                    }
+                  />
+
+                </div>
+
+
+                <p className="character-count">
+                  Characters: {answer.length}
+                </p>
+
+
+                <div className="answer-actions">
+
+                  <button
+                    className="primary-btn"
+                    type="submit"
+                  >
+                    {editingId
+                      ? "Update Answer"
+                      : "Save Answer"}
+                  </button>
+
+
+                  {editingId && (
+
+                    <button
+                      className="secondary-btn"
+                      type="button"
+                      onClick={
+                        handleEditQuestion
+                      }
+                    >
+                      Update Question Details
+                    </button>
+
+                  )}
+
+                </div>
+
+              </form>
+
+            )}
+
+          </div>
+
+        </div>
+
+
+        {/* =========================
+            SAVED QUESTIONS
+        ========================= */}
+
+        <div className="interview-card">
+
+          <h2>
+            My Interview Questions
+          </h2>
+
+
+          {questions.length === 0 ? (
+
+            <div className="empty-saved">
+
+              <p>
+                You haven't added any
+                company-specific questions yet.
+              </p>
+
+            </div>
+
+          ) : (
+
+            <div className="saved-question-list">
+
+              {questions
+                .filter(
+                  (item) =>
+                    item.category ===
+                    activeCategory
+                )
+                .map((item) => (
+
+                  <div
+                    className="saved-question-item"
+                    key={item.id}
+                  >
+
+                    <div className="saved-question-info">
+
+                      <h3>
+                        {item.question}
+                      </h3>
+
+
+                      {item.company && (
+
+                        <p>
+                          🏢 Company:{" "}
+                          {item.company}
+                        </p>
+
+                      )}
+
+
+                      <p>
+                        📌 Round:{" "}
+                        {item.round}
+                      </p>
+
+
+                      <p
+                        className={
+                          item.answer
+                            ? "answer-status prepared"
+                            : "answer-status not-prepared"
+                        }
+                      >
+                        {item.answer
+                          ? "✅ Answer prepared"
+                          : "⬜ Answer not prepared"}
+                      </p>
+
+                    </div>
+
+
+                    <div className="saved-question-actions">
+
+                      <button
+                        className="edit-btn"
+                        onClick={() =>
+                          handleQuestionSelect(
+                            item
+                          )
+                        }
+                      >
+                        Edit
+                      </button>
+
+
+                      <button
+                        className="delete-btn"
+                        onClick={() =>
+                          handleDeleteQuestion(
+                            item.id
+                          )
+                        }
+                      >
+                        Delete
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                ))}
+
+            </div>
+
+          )}
+
+        </div>
+
+      </div>
 
     </div>
 
